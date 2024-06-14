@@ -20,6 +20,7 @@ export class AuthMiddleware implements NestMiddleware {
           next();
         }
       });
+
       return res.status(400).json({ message: 'O usuário já está logado.' });
     }
 

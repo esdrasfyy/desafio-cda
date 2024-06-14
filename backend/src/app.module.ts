@@ -7,6 +7,8 @@ import { RegisterController } from './controllers/register/register.controller';
 import { RegisterService } from './services/register/register.service';
 import { LoginController } from './controllers/login/login.controller';
 import { AuthMiddleware } from './middlewares/auth.middlewae';
+import { UserController } from './controllers/user/user.controller';
+import { RankingService } from './services/ranking/ranking.service';
 
 @Module({
   imports: [],
@@ -15,13 +17,18 @@ import { AuthMiddleware } from './middlewares/auth.middlewae';
     OAuthController,
     RegisterController,
     LoginController,
+    UserController,
   ],
-  providers: [AppService, OAuthService, RegisterService],
+  providers: [AppService, OAuthService, RegisterService, RankingService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .forRoutes({ path: 'login', method: RequestMethod.POST });
+      .forRoutes(
+        { path: 'login', method: RequestMethod.POST },
+        { path: 'oauth', method: RequestMethod.GET },
+        { path: 'register', method: RequestMethod.POST },
+      );
   }
 }

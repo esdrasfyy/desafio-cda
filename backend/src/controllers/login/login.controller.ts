@@ -24,35 +24,53 @@ export class LoginController {
   async Login(@Res() res: ExpressResponse, @Body() body: any): Promise<void> {
     const { credential, password } = body;
     try {
-      const user = await prisma.user.findFirst({
+      const {
+        password: password_db,
+        UserEmblems,
+        ...rest
+      } = await prisma.user.findFirst({
         where: {
           OR: [{ email: credential }, { username: credential }],
         },
+        include: {
+          UserEmblems: {
+            include: {
+              emblem: true,
+            },
+          },
+        },
       });
 
-      if (!user) {
+      if (!rest) {
         throw new HttpException(
           'Usuário não encontrado.',
           HttpStatus.NOT_FOUND,
         );
       }
 
-      const isValidPassword = await compare(password, user.password);
+      const isValidPassword = await compare(password, password_db);
       if (!isValidPassword) {
         throw new HttpException('Senha incorreta.', HttpStatus.UNAUTHORIZED);
       }
 
-      const token = sign(user, this.secret, { expiresIn: '24h' });
+      const token = sign(
+        {
+          ...rest,
+          emblems: UserEmblems.map((ue) => ue.emblem),
+          points: UserEmblems.reduce((acc, cur) => acc + cur.emblem.value, 0),
+        },
+        this.secret,
+        { expiresIn: '24h' },
+      );
+      
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
-      res
-        .status(HttpStatus.OK)
-        .cookie('token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-          maxAge: 24 * 60 * 60 * 1000,
-        })
-        .json({ token });
+      res.status(HttpStatus.OK).json({ token });
     } catch (error) {
       throw new HttpException(
         error.message || 'Ocorreu um erro interno.',

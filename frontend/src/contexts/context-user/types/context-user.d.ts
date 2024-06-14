@@ -1,4 +1,4 @@
-import { UserI } from '../../../interfaces/user';
+import { UserI } from "../../../entities/user.entites";
 
 export interface ContextUserProps {
   user: UserI | null;

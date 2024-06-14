@@ -9,6 +9,7 @@ CREATE TABLE `User` (
     `password` VARCHAR(191) NULL,
     `fullname` VARCHAR(191) NULL,
     `avatar` VARCHAR(191) NULL,
+    `points` INTEGER NULL DEFAULT 0,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
@@ -25,6 +26,8 @@ CREATE TABLE `Emblem` (
     `slug` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `image` VARCHAR(191) NOT NULL,
+    `value` INTEGER NOT NULL,
+    `category` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)

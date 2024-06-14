@@ -60,3 +60,14 @@ body {
   height: 100%;
   background: #000000c7;
 }
+
+.banner-profile {
+  position: absolute;
+  width: 200%;
+  height: 145px;
+  rotate: -25deg;
+  top: -108px;
+  left: -130px;
+  background-color: var(--color-bg-secondary);
+  z-index: 0;
+}

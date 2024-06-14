@@ -1,64 +1,36 @@
 import { PrismaClient } from '@prisma/client';
+import { EmblemEnums } from '../../src/entities/emblem.entitie';
 
 const prisma = new PrismaClient();
 
 async function seed() {
   try {
     await prisma.emblem.createMany({
+      data: EmblemEnums,
+    });
+    console.log(`Badges inserted successfully.`);
+
+    await prisma.user.create({
+      data: {
+        id: 1,
+        email: 'contatoesdrasoficial@gmail.com',
+        username: 'esdrasfyy',
+        password:
+          '$2b$12$gT8WvkwTjgHIAx8KBtocuu8o.BX9bfMsrUVdsIJavMioiLVz.j9PG',
+        fullname: 'Fernando Esdras da Silva',
+      },
+    });
+    await prisma.userEmblem.createMany({
       data: [
-        {
-          slug: 'cda',
-          name: 'Cidade Alta',
-          image: 'https://cidadealtarp.com/imagens/challenge/cidade-alta.png',
-        },
-        {
-          slug: 'cda-valley',
-          name: 'Cidade Alta Valley',
-          image:
-            'https://cidadealtarp.com/imagens/challenge/cidade-alta-valley.png',
-        },
-        {
-          slug: 'policia',
-          name: 'Policia do Cidade Alta',
-          image: 'https://cidadealtarp.com/imagens/challenge/policia.png',
-        },
-        {
-          slug: 'hospital',
-          name: 'Hospital do Cidade Alta',
-          image: 'https://cidadealtarp.com/imagens/challenge/hospital.png',
-        },
-        {
-          slug: 'mecanica',
-          name: 'Mecânica do Cidade Alta',
-          image: 'https://cidadealtarp.com/imagens/challenge/mecanica.png',
-        },
-        {
-          slug: 'taxi',
-          name: 'Taxi do Cidade Alta',
-          image: 'https://cidadealtarp.com/imagens/challenge/taxi.png',
-        },
-        {
-          slug: 'curuja',
-          name: 'Coruja',
-          image: 'https://cidadealtarp.com/imagens/challenge/coruja.png',
-        },
-        {
-          slug: 'hiena',
-          name: 'Hiena',
-          image: 'https://cidadealtarp.com/imagens/challenge/hiena.png',
-        },
-        {
-          slug: 'gato',
-          name: 'Gato',
-          image: 'https://cidadealtarp.com/imagens/challenge/gato.png',
-        },
-        {
-          slug: 'urso',
-          name: 'Urso',
-          image: 'https://cidadealtarp.com/imagens/challenge/urso.png',
-        },
+        { user_id: 1, emblem_id: 1 },
+        { user_id: 1, emblem_id: 23 },
+        { user_id: 1, emblem_id: 6 },
+        { user_id: 1, emblem_id: 12 },
+        { user_id: 1, emblem_id: 30 },
+        { user_id: 1, emblem_id: 18 },
       ],
     });
+
     console.log('Successfully executed seed');
   } catch (error) {
     console.error('Error when executing the seed:', error);

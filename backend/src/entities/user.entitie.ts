@@ -1,4 +1,6 @@
-interface UserI {
+import { EmblemI } from "./emblem.entitie";
+
+export interface UserI {
   id: number;
   email?: string | null;
   username?: string | null;
@@ -7,22 +9,13 @@ interface UserI {
   verified_email: boolean;
   password?: string | null;
   fullname?: string | null;
-  avatar?: string | null;
+  avatar: string | null;
   deleted: boolean;
   created_at: Date;
   UserEmblems: UserEmblemI[];
 }
 
-interface EmblemI {
-  id: number;
-  slug: string;
-  name: string;
-  image: string;
-  created_at: Date;
-  UserEmblem: UserEmblemI[];
-}
-
-interface UserEmblemI {
+export interface UserEmblemI {
   id: number;
   user_id: number;
   user: UserI;
