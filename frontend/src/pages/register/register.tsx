@@ -1,29 +1,9 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { regexPassword } from "../../utils/regex/regex";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/context-user/context-user";
 import OAuthGoogle from "../../components/ui/oauth/oauth-google";
 import { OAuthGithub } from "../../components/ui/oauth/oauth-github";
-import { LoginForm } from "../login/sub-components/form/login-form";
 import { RegisterForm } from "./sub-components/form/register-form";
 import { useEffect } from "react";
-export type Inputs = {
-  credential: string;
-  password: string;
-};
-
-const schema = yup.object().shape({
-  credential: yup
-    .string()
-    .required("This field is required!")
-    .min(8, "Minimum characters are 8."),
-  password: yup
-    .string()
-    .matches(regexPassword, "formato incorreto")
-    .required("This field is required!"),
-});
 
 const Register = () => {
   const navigate = useNavigate();
@@ -66,7 +46,7 @@ const Register = () => {
         </div>
       </section>
       <section className="w-full flex justify-center items-center my-4 px-4">
-        <div className="w-full max-w-[500px] flex flex-col justify-center items-center gap-10 bg-[--color-bg-secondary] px-7 py-12 rounded-md shadow-snipped">
+        <div className="w-full max-w-[500px] flex flex-col justify-center items-center gap-10 border-[1px] border-[--color-one] px-7 py-12 rounded-md shadow-snipped">
           <h1 className="w-full text-4xl font-semibold text-[--color-one] mb-5 text-center">
             Register
           </h1>

@@ -6,7 +6,7 @@ datasource db {
 model User {
   id             Int          @id @default(autoincrement())
   email          String?      @unique
-  username       String?      @unique
+  username       String      @unique
   github_id      String?      @unique
   google_id      String?      @unique
   verified_email Boolean      @default(false)

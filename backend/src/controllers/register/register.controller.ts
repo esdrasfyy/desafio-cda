@@ -12,16 +12,12 @@ import { regexEmail, regexPassword } from 'src/utils/regex/regex.util';
 import { prisma } from 'src/services/database/database.service';
 import { genSalt, hash } from 'bcrypt';
 import { Prisma } from '@prisma/client';
-import { AuthMiddleware } from 'src/middlewares/auth.middlewae';
 import { sign } from 'jsonwebtoken';
 
 @Controller('/register')
 export class RegisterController {
   private secret = process.env.SECRET as string;
 
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes(RegisterController);
-  }
   @Post()
   async Register(
     @Res() res: ExpressResponse,

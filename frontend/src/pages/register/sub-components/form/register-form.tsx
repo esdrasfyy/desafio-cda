@@ -9,7 +9,6 @@ import { InputPassword } from "../../../../components/ui/inputs/password/input-p
 import { LuArrowRight } from "react-icons/lu";
 import { HiOutlineMail } from "react-icons/hi";
 import { theme } from "../../../../components/ui/theme/theme";
-import { LoginApi } from "../../../../services/login/login.service";
 import { FaRegUser } from "react-icons/fa";
 import { RegisterApi } from "../../../../services/register/register.service";
 
@@ -33,7 +32,7 @@ export const RegisterForm = () => {
       password,
     });
 
-    if (data?.token && status == 201) {
+    if (data?.token && status === 201) {
       const decoded = DecodeUser(data.token);
       if (decoded) {
         setUser(decoded);
@@ -42,7 +41,7 @@ export const RegisterForm = () => {
           title: "Erro ao logar usuário.",
           description: data.message || error,
           status: "error",
-          duration: 9000,
+          duration: 1500,
           isClosable: true,
         });
       }
@@ -51,7 +50,7 @@ export const RegisterForm = () => {
         title: "Erro ao logar usuário.",
         description: "Token não fornecido.",
         status: "error",
-        duration: 9000,
+        duration: 1500,
         isClosable: true,
       });
     }

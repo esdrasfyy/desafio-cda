@@ -17,8 +17,12 @@ export const InputPassword = ({
   error,
   register,
   name,
+  disable,
+  value,
 }: {
   name: string;
+  disable?: boolean;
+  value?: string;
   forgot?: boolean;
   classes?: string;
   placeholder: string;
@@ -37,22 +41,28 @@ export const InputPassword = ({
         <LuKeyRound />
       </InputLeftElement>
       <Input
+        value={value}
+        disabled={disable}
         type={visible ? "text" : "password"}
         placeholder={placeholder}
         size="lg"
         focusBorderColor="color_primary"
         isInvalid={Boolean(error)}
         {...register(name)}
-        className={`${classes} ${!error && !forgot && "mb-4"} w-full py-2 pl-7 pr-3 rounded-md relative bg-[--color-bg-secondary] focus:outline-[2px] duration-300 ease-linear`}
+        className={`${classes} ${
+          !error && !forgot && "mb-4"
+        } w-full py-2 pl-7 pr-3 rounded-md relative bg-[--color-bg-secondary] focus:outline-[2px] duration-300 ease-linear`}
       />
-      <InputRightElement
-        fontSize={"20px"}
-        onClick={() => setVisible(!visible)}
-        cursor="pointer"
-        top="4px"
-      >
-        {visible ? <FaRegEyeSlash /> : <FaRegEye />}
-      </InputRightElement>
+      {!disable && (
+        <InputRightElement
+          fontSize={"20px"}
+          onClick={() => setVisible(!visible)}
+          cursor="pointer"
+          top="4px"
+        >
+          {visible ? <FaRegEyeSlash /> : <FaRegEye />}
+        </InputRightElement>
+      )}
       <div
         className={`text-[10px] uppercase italic my-3 flex ${
           error ? "justify-between" : " justify-end"

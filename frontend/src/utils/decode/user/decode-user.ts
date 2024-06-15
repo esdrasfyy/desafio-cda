@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import config from "../../../config/config";
+import { UserI } from "../../../entities/user.entites";
 
 export interface LoginApiReq {
   message: string | null;

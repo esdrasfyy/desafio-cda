@@ -10,12 +10,14 @@ export const InputDefault = ({
   register,
   name,
   Icon,
+  value,
 }: {
   name: string;
   classes?: string;
   placeholder: string;
   error?: string;
   Icon: IconType;
+  value?: string;
   register: UseFormRegister<any>;
 }) => {
   return (
@@ -29,6 +31,7 @@ export const InputDefault = ({
         <Icon />
       </InputLeftElement>
       <Input
+        defaultValue={value}
         focusBorderColor="color_primary"
         isInvalid={Boolean(error)}
         placeholder={placeholder}

@@ -13,10 +13,8 @@ export class OAuthService {
   private githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
   private googleClientId = process.env.GOOGLE_CLIENT_ID;
   private googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  private baseUrl = process.env.BASE_URL;
 
-
-  async oAuthGithub(code: string): Promise<GithubUserResult> {
+  public async oAuthGithub(code: string): Promise<GithubUserResult> {
     try {
       const accessToken = await this.GetGithubOAuthTokens({ code });
       if (!accessToken) {
@@ -33,7 +31,7 @@ export class OAuthService {
     }
   }
 
-  async oAuthGoogle(code: string): Promise<GoogleUserResult> {
+  public async oAuthGoogle(code: string): Promise<GoogleUserResult> {
     try {
       const { access_token, id_token } = await this.GetGoogleOAuthToken({
         code,

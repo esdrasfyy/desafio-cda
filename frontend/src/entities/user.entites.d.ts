@@ -1,7 +1,7 @@
 export interface UserI {
   id: number;
   email?: string | null;
-  username?: string | null;
+  username: string | null;
   github_id?: string | null;
   google_id?: string | null;
   verified_email: boolean;

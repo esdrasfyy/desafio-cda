@@ -4,7 +4,7 @@ import { EmblemI } from 'src/entities/emblem.entitie';
 
 @Injectable()
 export class RankingService {
-  async updateUserPoints({
+  public async updateUserPoints({
     id,
     emblemId,
   }: {
@@ -29,7 +29,7 @@ export class RankingService {
       throw new Error(`Erro ao atualizar os pontos do usuário.`);
     }
   }
-  async getUserNotHaveEmblem({ emblems }: { emblems: EmblemI[] }) {
+  public async getUserNotHaveEmblem({ emblems }: { emblems: EmblemI[] }) {
     const ids: number[] = emblems.map((emblem) => emblem.id);
     try {
       const emblemsNotIn = await prisma.emblem.findMany({
@@ -47,7 +47,7 @@ export class RankingService {
       throw new Error('O usuário já ganhou todos os emblemas.');
     }
   }
-  async getRandomEmblemToUser({
+  public async getRandomEmblemToUser({
     id,
     emblems,
   }: {

@@ -6,9 +6,10 @@ import { OAuthService } from './services/oauth/oauth.service';
 import { RegisterController } from './controllers/register/register.controller';
 import { RegisterService } from './services/register/register.service';
 import { LoginController } from './controllers/login/login.controller';
-import { AuthMiddleware } from './middlewares/auth.middlewae';
+import { AuthMiddleware } from './middlewares/auth.middleware';
 import { UserController } from './controllers/user/user.controller';
 import { RankingService } from './services/ranking/ranking.service';
+import { MailerService } from './services/mailer/mailer.controller';
 
 @Module({
   imports: [],
@@ -19,7 +20,13 @@ import { RankingService } from './services/ranking/ranking.service';
     LoginController,
     UserController,
   ],
-  providers: [AppService, OAuthService, RegisterService, RankingService],
+  providers: [
+    AppService,
+    OAuthService,
+    RegisterService,
+    RankingService,
+    MailerService,
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

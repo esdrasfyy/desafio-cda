@@ -3,25 +3,18 @@ import {
   Get,
   HttpException,
   HttpStatus,
-  MiddlewareConsumer,
   Query,
   Res,
 } from '@nestjs/common';
 import { Response as ExpressResponse } from 'express';
 import { sign } from 'jsonwebtoken';
-import { AuthMiddleware } from 'src/middlewares/auth.middlewae';
 import { prisma } from 'src/services/database/database.service';
 import { OAuthService } from 'src/services/oauth/oauth.service';
 
 @Controller('/oauth')
 export class OAuthController {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes(OAuthController);
-  }
-
   private frontBaseUrl = process.env.FRONT_BASE_URL as string;
   private secret = process.env.SECRET as string;
-
   constructor(private readonly oAuthGithubService: OAuthService) {}
 
   @Get('/github')
@@ -45,7 +38,12 @@ export class OAuthController {
 
       if (!user) {
         user = await prisma.user.create({
-          data: { avatar: avatar_url, github_id: String(id), fullname: name },
+          data: {
+            avatar: avatar_url,
+            github_id: String(id),
+            fullname: name,
+            username: `user${Math.floor(1000 + Math.random() * 9000)}`,
+          },
         });
       }
 
@@ -84,7 +82,12 @@ export class OAuthController {
 
       if (!user) {
         user = await prisma.user.create({
-          data: { avatar: picture, google_id: id, fullname: name },
+          data: {
+            avatar: picture,
+            google_id: id,
+            fullname: name,
+            username: `user${Math.floor(9999 + Math.random() * 99999)}`,
+          },
         });
       }
 

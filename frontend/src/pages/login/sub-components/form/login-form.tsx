@@ -23,27 +23,30 @@ export const LoginForm = () => {
     credential,
     password,
   }) => {
-    const { status, error, data } = await LoginApi({ credential, password });
+    try {
+      const { status, error, data } = await LoginApi({ credential, password });
 
-    if (data?.token && status == 200) {
-      const decoded = DecodeUser(data.token);
-      if (decoded) {
-        setUser(decoded);
-      } else {
-        return toast({
-          title: "Erro ao logar usuário.",
-          description: data.message || error,
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
+      if (data?.token && status === 200) {
+        const decoded = DecodeUser(data.token);
+        if (decoded) {
+          setUser(decoded);
+          return toast({
+            title: "Login bem sucedido.",
+            description: "Comece a jogar e competir.",
+            status: "success",
+            duration: 1500,
+            isClosable: true,
+          });
+        }
+        throw new Error("Erro ao decodificar token.");
       }
-    } else {
+      throw new Error(error || "Token não fornecido.");
+    } catch (error: any) {
       return toast({
         title: "Erro ao logar usuário.",
-        description: "Token não fornecido.",
+        description: error.message,
         status: "error",
-        duration: 9000,
+        duration: 1500,
         isClosable: true,
       });
     }
