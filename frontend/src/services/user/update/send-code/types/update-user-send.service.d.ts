@@ -1,5 +1,5 @@
 export interface UpdateUserSendApiReq {
-  message: string | null;
+  message: string;
 }
 export interface UpdateUserSendApiResponse {
   data: UpdateUserSendApiReq | null;
@@ -9,8 +9,8 @@ export interface UpdateUserSendApiResponse {
 
 export interface UpdateUserSendApiProps {
   fullname?: string;
-  username: string;
-  email: string;
+  username?: string;
+  email?: string;
   avatar?: string;
   password?: string;
 }

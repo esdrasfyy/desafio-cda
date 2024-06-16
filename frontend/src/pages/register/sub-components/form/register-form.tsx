@@ -14,7 +14,7 @@ import { RegisterApi } from "../../../../services/register/register.service";
 
 export const RegisterForm = () => {
   const toast = useToast();
-  const { setUser } = useUser();
+  const { setUser, setLoading } = useUser();
   const {
     register,
     handleSubmit,
@@ -26,39 +26,50 @@ export const RegisterForm = () => {
     username,
     password,
   }) => {
-    const { status, error, data } = await RegisterApi({
-      email,
-      username,
-      password,
-    });
+    try {
+      setLoading(true);
+      const { status, error, data } = await RegisterApi({
+        email,
+        username,
+        password,
+      });
 
-    if (data?.token && status === 201) {
-      const decoded = DecodeUser(data.token);
-      if (decoded) {
-        setUser(decoded);
-      } else {
-        return toast({
-          title: "Erro ao logar usuário.",
-          description: data.message || error,
-          status: "error",
-          duration: 1500,
-          isClosable: true,
-        });
+      if (status !== 201 || !data?.token) {
+        throw new Error(error || data?.message || "Ocorreu um erro interno");
       }
-    } else {
-      return toast({
-        title: "Erro ao logar usuário.",
-        description: "Token não fornecido.",
-        status: "error",
-        duration: 1500,
+
+      const decoded = DecodeUser(data.token);
+      if (!decoded) {
+        throw new Error("Token não fornecido.");
+      }
+      setUser(decoded);
+      toast({
+        title: "Usuário registrado!",
+        description: "Comece a jogar agora mesmo.",
+        status: "success",
+        duration: 3500,
+        variant: "left-accent",
+        position: "top-right",
         isClosable: true,
       });
+    } catch (error: any) {
+      return toast({
+        title: "Erro ao registrar usuário.",
+        description: error.message,
+        status: "error",
+        duration: 3500,
+        variant: "left-accent",
+        position: "top-right",
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 w-full"
+      className="flex flex-col gap-3 w-full relative"
     >
       <InputDefault
         Icon={FaRegUser}

@@ -4,6 +4,7 @@ import { useUser } from "../../contexts/context-user/context-user";
 import { useNavigate } from "react-router-dom";
 import { LoginForm } from "./sub-components/form/login-form";
 import { useEffect } from "react";
+import { Loading } from "../../components/loading/loading";
 
 const Login = () => {
 
@@ -22,7 +23,8 @@ const Login = () => {
   return (
     <main className="w-full flex h-screen gap-16">
       <section className="w-full flex justify-center items-center my-4 px-4">
-        <div className="w-full max-w-[500px] flex flex-col justify-center items-center gap-10 border-[1px] border-[--color-one] px-7 py-12 rounded-md shadow-snipped">
+        <div className="w-full max-w-[500px] flex flex-col justify-center items-center gap-10 border-[1px] border-[--color-one] px-7 py-12 rounded-md shadow-snipped relative">
+          <Loading />
           <h1 className="w-full text-4xl font-semibold text-[--color-one] mb-5 text-center">
             Login
           </h1>
@@ -30,7 +32,7 @@ const Login = () => {
             <OAuthGoogle />
             <OAuthGithub />
           </div>
-          <LoginForm/>
+          <LoginForm />
           <div className="w-full flex gap-2">
             <p>Não tem uma conta?</p>
             <a

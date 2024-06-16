@@ -11,6 +11,7 @@ export const InputDefault = ({
   name,
   Icon,
   value,
+  disabled,
 }: {
   name: string;
   classes?: string;
@@ -18,6 +19,7 @@ export const InputDefault = ({
   error?: string;
   Icon: IconType;
   value?: string;
+  disabled?: boolean;
   register: UseFormRegister<any>;
 }) => {
   return (
@@ -31,6 +33,7 @@ export const InputDefault = ({
         <Icon />
       </InputLeftElement>
       <Input
+        disabled={disabled}
         defaultValue={value}
         focusBorderColor="color_primary"
         isInvalid={Boolean(error)}

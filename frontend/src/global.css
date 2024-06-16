@@ -71,3 +71,30 @@ body {
   background-color: var(--color-bg-secondary);
   z-index: 0;
 }
+
+.inputPin {
+  border: 2px solid #a0a0a0 !important;
+  font-size: 1.6rem !important;
+  outline: none !important;
+  color: var(--color-one);
+  box-sizing: border-box;
+  box-shadow: none;
+}
+
+.inputPin:focus {
+  border: none !important;
+  font-size: 1.6rem !important;
+  outline: 2px solid var(--color-one) !important;
+  color: var(--color-one);
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  border-radius: 3px !important;
+}
+
+.toast-2-title{
+  color: var(--color-text) !important;
+}
+
+.chakra-alert{
+  background: var(--color-bg-secondary) !important;
+}

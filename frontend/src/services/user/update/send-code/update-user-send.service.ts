@@ -33,9 +33,7 @@ async function UpdateUserSendApi(
       };
     } else {
       return {
-        data: {
-          message: response?.data?.message || "Erro desconhecido.",
-        },
+        data: null,
         error: response.data
           ? response.data.message || "Erro desconhecido."
           : "Erro desconhecido.",
@@ -44,9 +42,7 @@ async function UpdateUserSendApi(
     }
   } catch (error: any) {
     return {
-      data: {
-        message: error.response?.data?.message || null,
-      },
+      data: null,
       error: error.response?.data?.msg || "Erro desconhecido.",
       status: error.response?.status || 500,
     };

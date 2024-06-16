@@ -18,7 +18,7 @@ const ContextUser = createContext<ContextUserProps | undefined>(undefined);
 
 const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserI | null>(null);
-  const [emailForRecovery, setEmailForRecovery] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const api = config.API;
   const fetchUser = useCallback(async () => {
@@ -42,8 +42,8 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const contextValue: ContextUserProps = {
     user,
     setUser,
-    emailForRecovery,
-    setEmailForRecovery,
+    loading,
+    setLoading,
   };
 
   return (
@@ -59,7 +59,11 @@ const useUser = () => {
   const user: UserI | null = context.user;
   const setUser: React.Dispatch<React.SetStateAction<UserI | null>> =
     context.setUser;
-  return { user, setUser };
+
+  const loading: boolean = context.loading;
+  const setLoading: React.Dispatch<React.SetStateAction<boolean>> =
+    context.setLoading;
+  return { user, setUser, loading, setLoading };
 };
 
 export { ContextUser, UserProvider, useUser };

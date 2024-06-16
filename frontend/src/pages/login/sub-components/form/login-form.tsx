@@ -12,7 +12,7 @@ import { DecodeUser } from "../../../../utils/decode/user/decode-user";
 
 export const LoginForm = () => {
   const toast = useToast();
-  const { setUser } = useUser();
+  const { setUser, setLoading } = useUser();
   const {
     register,
     handleSubmit,
@@ -24,6 +24,7 @@ export const LoginForm = () => {
     password,
   }) => {
     try {
+      setLoading(true);
       const { status, error, data } = await LoginApi({ credential, password });
 
       if (data?.token && status === 200) {
@@ -34,7 +35,9 @@ export const LoginForm = () => {
             title: "Login bem sucedido.",
             description: "Comece a jogar e competir.",
             status: "success",
-            duration: 1500,
+            duration: 3500,
+            variant: "left-accent",
+            position: "top-right",
             isClosable: true,
           });
         }
@@ -46,15 +49,19 @@ export const LoginForm = () => {
         title: "Erro ao logar usuário.",
         description: error.message,
         status: "error",
-        duration: 1500,
+        duration: 3500,
+        variant: "left-accent",
+        position: "top-right",
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 w-full"
+      className="flex flex-col gap-3 w-full relative"
     >
       <InputDefault
         Icon={LuLock}
@@ -75,7 +82,7 @@ export const LoginForm = () => {
         />
       </div>
       <Button
-        rightIcon={<LuArrowRight />}
+        rightIcon={<LuArrowRight className="group-hover:translate-x-5" />}
         variant="solid"
         type="submit"
         size="lg"

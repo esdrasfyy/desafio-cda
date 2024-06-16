@@ -18,7 +18,9 @@ export const Logout = () => {
         title: "Usuário deslogado.",
         description: data?.message || error,
         status: "success",
-        duration: 1500,
+        duration: 3500,
+        variant: "left-accent",
+        position: "top-right",
         isClosable: true,
       });
     } catch (error: any) {
@@ -26,7 +28,9 @@ export const Logout = () => {
         title: "Erro ao deslogar usuário.",
         description: error.message,
         status: "error",
-        duration: 1500,
+        duration: 3500,
+        variant: "left-accent",
+        position: "top-right",
         isClosable: true,
       });
     }

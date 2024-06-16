@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { FiMail, FiUser } from "react-icons/fi";
 import { Logout } from "../../components/ui/inputs/logout/logout";
 import { EditProfile } from "../../components/modals/edit-profile/edit-profile";
+import "@splidejs/splide/dist/css/themes/splide-default.min.css"; 
+import { Carousel } from "../../components/carousel/carousel";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -26,8 +29,8 @@ const Dashboard = () => {
   }
 
   return (
-    <main className="flex w-full h-full justify-center items-center">
-      <section className="relative flex gap-4 flex-col justify-between overflow-hidden rounded-md shadow-snipped border-[1px] border-[--color-one] border-solid max-w-96 w-full">
+    <main className="flex w-full justify-center min-h-full items-center">
+      <section className=" mx-2 relative flex gap-4 flex-col justify-between overflow-hidden rounded-md shadow-snipped border-[1px] border-[--color-one] border-solid max-w-96 w-full">
         <span className="banner-profile shadow-snipped border-[1px] border-[--color-one] border-solid"></span>
         <div className="absolute w-full flex items-center justify-between text-xl px-2 mt-2">
           <EditProfile />
@@ -56,7 +59,10 @@ const Dashboard = () => {
             {user.fullname || (
               <span className="normal-case">
                 Indefinido. Cadastre seu nome{" "}
-                <a className="text-[--color-one] underline"> agora!</a>
+                <a className="text-[--color-one] underline" href="#">
+                  {" "}
+                  agora!
+                </a>
               </span>
             )}
           </p>
@@ -68,7 +74,10 @@ const Dashboard = () => {
             {user.email || (
               <span className="normal-case">
                 Indefinido. Cadastre um email{" "}
-                <a className="text-[--color-one] font-semibold underline">
+                <a
+                  className="text-[--color-one] font-semibold underline"
+                  href="#"
+                >
                   {" "}
                   agora!
                 </a>
@@ -92,108 +101,33 @@ const Dashboard = () => {
         </div>
         <div className="mt-2">
           <div className="border-y-[1px] border-[--color-one] p-4">
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between mb-4">
               <h3 className="font-extrabold text-sm text-[--color-one]">
-                OURO
+                CATEGORIA OURO
               </h3>
-              <button className="text-[10px] underline normal-case font-extrabold">
-                VER MAIS
-              </button>
+              <p className="font-extrabold text-sm text-[--color-one]">
+                30 PTS
+              </p>
             </div>
-            <ul className="flex w-full gap-7 mt-2">
-              {user.emblems ? (
-                user.emblems
-                  .filter((em) => em.category === "ouro")
-                  .slice(0, 5)
-                  .map((em, index) => (
-                    <li
-                      className="w-fit flex gap-2 flex-col items-center"
-                      key={index}
-                    >
-                      <img
-                        src={em.image}
-                        alt={em.category}
-                        className="border-solid  border-[1px] rounded-full w-10 h-10"
-                      />
-                      <p className=" text-center text-[9px] uppercase font-extrabold">
-                        {index + 1}&ordm; {em.slug}
-                      </p>
-                    </li>
-                  ))
-              ) : (
-                <li className="w-full text-center text-xs font-semibold my-3">
-                  Ainda sem emblemas? Jogue agora mesmo.
-                </li>
-              )}
-            </ul>
+            <Carousel category="ouro" />
           </div>
           <div className="border-b-[1px] border-[--color-one] p-4">
-            <div className="w-full flex justify-between">
-              <h3 className="font-extrabold text-sm text-[#C0C0C0]">PRATA</h3>
-              <button className="text-[10px] underline normal-case font-extrabold">
-                VER MAIS
-              </button>
+            <div className="w-full flex justify-between mb-4">
+              <h3 className="font-extrabold text-sm text-[#C0C0C0]">
+                CATEGORIA PRATA
+              </h3>
+              <p className="font-extrabold text-sm text-[#C0C0C0]">20 PTS</p>
             </div>
-            <ul className="flex w-full gap-7 mt-2">
-              {user.emblems ? (
-                user.emblems
-                  .filter((em) => em.category === "prata")
-                  .slice(0, 5)
-                  .map((em, index) => (
-                    <li
-                      className="w-fit flex gap-2 flex-col items-center"
-                      key={index}
-                    >
-                      <img
-                        src={em.image}
-                        alt={em.category}
-                        className="border-solid  border-[1px] rounded-full w-10 h-10"
-                      />
-                      <p className=" text-center text-[9px] uppercase font-extrabold">
-                        {index + 1}&ordm; {em.slug}
-                      </p>
-                    </li>
-                  ))
-              ) : (
-                <li className="w-full text-center text-xs font-semibold my-3">
-                  Ainda sem emblemas? Jogue agora mesmo.
-                </li>
-              )}
-            </ul>
+            <Carousel category="prata" />
           </div>
           <div className="p-4">
-            <div className="w-full flex justify-between">
-              <h3 className="font-extrabold text-sm text-[#6e4d25]">BRONZE</h3>
-              <button className="text-[10px] underline normal-case font-extrabold">
-                VER MAIS
-              </button>
+            <div className="w-full flex justify-between mb-4">
+              <h3 className="font-extrabold text-sm text-[#6e4d25]">
+                CATEGORIA BRONZE
+              </h3>
+              <p className="font-extrabold text-sm text-[#6e4d25]">10 PTS</p>
             </div>
-            <ul className="flex w-full gap-7 mt-2">
-              {user.emblems ? (
-                user.emblems
-                  .filter((em) => em.category === "bronze")
-                  .slice(0, 5)
-                  .map((em, index) => (
-                    <li
-                      className="w-fit flex gap-2 flex-col items-center"
-                      key={index}
-                    >
-                      <img
-                        src={em.image}
-                        alt={em.category}
-                        className="border-solid  border-[1px] rounded-full w-10 h-10"
-                      />
-                      <p className=" text-center text-[9px] uppercase font-extrabold">
-                        {index + 1}&ordm; {em.slug}
-                      </p>
-                    </li>
-                  ))
-              ) : (
-                <li className="w-full text-center text-xs font-semibold my-3">
-                  Ainda sem emblemas? Jogue agora mesmo.
-                </li>
-              )}
-            </ul>
+            <Carousel category="bronze" />
           </div>
         </div>
       </section>

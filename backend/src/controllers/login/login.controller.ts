@@ -4,7 +4,6 @@ import {
   Get,
   HttpException,
   HttpStatus,
-  MiddlewareConsumer,
   Post,
   Req,
   Res,
@@ -63,15 +62,16 @@ export class LoginController {
         this.secret,
         { expiresIn: '24h' },
       );
-
-      res.cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-        maxAge: 24 * 60 * 60 * 1000,
-      });
-
-      res.status(HttpStatus.OK).json({ token });
+      
+      res
+        .cookie('token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+          maxAge: 24 * 60 * 60 * 1000,
+        })
+        .status(HttpStatus.OK)
+        .json({ token });
     } catch (error) {
       throw new HttpException(
         error.message || 'Ocorreu um erro interno.',

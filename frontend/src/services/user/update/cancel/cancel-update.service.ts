@@ -1,29 +1,20 @@
 import axios, { AxiosResponse } from "axios";
 import config from "../../../../config/config";
-import {
-  UpdateUserConfirmApiReq,
-  UpdateUserConfirmApiResponse,
-} from "./types/confirm-code.service";
+import { UpdateUserCancelApiReq, UpdateUserCancelApiResponse } from "./types/cancel-update.service";
 
-async function UpdateUserConfirmApi(
-  code: string
-): Promise<UpdateUserConfirmApiResponse> {
+async function UpdateUserCancelApi(): Promise<UpdateUserCancelApiResponse> {
   const api = config.API;
 
   try {
-    const response: AxiosResponse<UpdateUserConfirmApiReq | null> =
-      await axios.get(`${api}/user/update?code=${code}`, {
+    const response: AxiosResponse<UpdateUserCancelApiReq | null> =
+      await axios.get(`${api}/user/update/cancel`, {
         withCredentials: true,
       });
 
-    if (response.status === 200 && response.data) {
+    if (response.status === 200 && response?.data?.message) {
       return {
         data: {
-          message: response.data.message || "Usuario atualizado.",
-          email: response.data.email,
-          username: response.data.username,
-          fullname: response.data.fullname,
-          avatar: response.data.avatar,
+          message: response.data.message,
         },
         error: null,
         status: response.status,
@@ -45,4 +36,4 @@ async function UpdateUserConfirmApi(
     };
   }
 }
-export { UpdateUserConfirmApi };
+export { UpdateUserCancelApi };

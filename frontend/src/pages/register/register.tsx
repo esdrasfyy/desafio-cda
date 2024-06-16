@@ -4,6 +4,7 @@ import OAuthGoogle from "../../components/ui/oauth/oauth-google";
 import { OAuthGithub } from "../../components/ui/oauth/oauth-github";
 import { RegisterForm } from "./sub-components/form/register-form";
 import { useEffect } from "react";
+import { Loading } from "../../components/loading/loading";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -46,7 +47,8 @@ const Register = () => {
         </div>
       </section>
       <section className="w-full flex justify-center items-center my-4 px-4">
-        <div className="w-full max-w-[500px] flex flex-col justify-center items-center gap-10 border-[1px] border-[--color-one] px-7 py-12 rounded-md shadow-snipped">
+        <div className="w-full max-w-[500px] flex flex-col justify-center items-center gap-10 border-[1px] border-[--color-one] px-7 py-12 rounded-md shadow-snipped relative">
+        <Loading/>
           <h1 className="w-full text-4xl font-semibold text-[--color-one] mb-5 text-center">
             Register
           </h1>
