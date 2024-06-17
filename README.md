@@ -1,10 +1,10 @@
 # Desafio para Vaga de Desenvolvedor FullStack na Empresa Cidade Alta
 
-![Dashboard do Aplicativo](./public/dashboard.png)
+![Dashboard do Aplicativo](./frontend/public/dashboard.png)
 
 ---
 
-![Login do Aplicativo](./public/login.png)
+![Login do Aplicativo](./frontend/public/login.png)
 
 ---
 
