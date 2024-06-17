@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import config from "../../../../config/config";
 import { UpdateUserCancelApiReq, UpdateUserCancelApiResponse } from "./types/cancel-update.service";
+import config from "../../../../config/config";
 
 async function UpdateUserCancelApi(): Promise<UpdateUserCancelApiResponse> {
   const api = config.API;

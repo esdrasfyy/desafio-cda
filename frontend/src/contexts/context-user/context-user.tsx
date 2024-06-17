@@ -10,11 +10,11 @@ import React, {
 
 import axios from "axios";
 import { ContextUserProps } from "./types/context-user";
-import config from "../../config/config";
 import { DecodeUser } from "../../utils/decode/user/decode-user";
 import { UserI } from "../../entities/user.entites";
 import { RankingI } from "../../entities/ranking.entitie";
 import { GetRankingApi } from "../../services/ranking/get-ranking/get-ranking.service";
+import config from "../../config/config";
 
 const ContextUser = createContext<ContextUserProps | undefined>(undefined);
 

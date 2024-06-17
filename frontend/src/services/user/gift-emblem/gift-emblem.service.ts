@@ -1,13 +1,12 @@
 import axios, { AxiosResponse } from "axios";
-
-import config from "../../../config/config";
 import {
   GiftEmblemApiReq,
   GiftEmblemApiResponse,
 } from "./types/gift-emblem.service";
+import config from "../../../config/config";
 
 async function GiftEmblemApi(): Promise<GiftEmblemApiResponse> {
-  const api = config.API;
+    const api = config.API;
 
   try {
     const response: AxiosResponse<GiftEmblemApiReq | null> = await axios.get(

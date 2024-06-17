@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import config from "../../../../config/config";
 import {
   UpdateUserConfirmApiReq,
   UpdateUserConfirmApiResponse,
 } from "./types/confirm-code.service";
+import config from "../../../../config/config";
 
 async function UpdateUserConfirmApi(
   code: string
