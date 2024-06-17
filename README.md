@@ -22,9 +22,9 @@ No frontend, senti-me completamente à vontade trabalhando com React e ChakraUI.
 
 Considero que o sistema poderia alcançar um nível ainda maior de segurança ao adotar Next.js para o frontend. O server-side rendering oferecido pelo Next.js proporcionaria vantagens significativas, como a manipulação de rotas através de middleware no servidor, além de permitir o armazenamento de cookies httpOnly no servidor do Next.js, reduzindo assim a carga no servidor NestJS. Além disso, o cacheamento oferecido pelo Next.js poderia ser aproveitado para melhorar ainda mais o desempenho e a eficiência das requisições.
 
-Planejo continuar atualizando este repositório regularmente, realizando refatorações de código e aprimorando o design do sistema. A proposta do projeto me cativou desde o início, e estou ansioso para expandir e aperfeiçoar ainda mais este projeto.
+Planejo continuar utilizando essa stack de NestJs e prisma em futuros projetos, e atualizando este repositório regularmente, realizando refatorações de código e aprimorando o design do sistema. A proposta do projeto me cativou desde o início, e estou ansioso para expandir e aperfeiçoar ainda mais este projeto.
 
-- **Clone**: "[text](https://github.com/esdrasfyy/desafio-cda.git)"
+- **Clone**: "[https://github.com/esdrasfyy/desafio-cda.git](https://github.com/esdrasfyy/desafio-cda.git)"
 
 ## Funcionalidades Implementadas
 
