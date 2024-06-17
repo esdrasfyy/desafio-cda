@@ -1,5 +1,13 @@
 # Desafio para Vaga de Desenvolvedor FullStack na Empresa Cidade Alta
 
+![Dashboard do Aplicativo](./public/dashboard.png)
+
+---
+
+![Login do Aplicativo](./public/login.png)
+
+---
+
 ## Sobre o Projeto
 
 Este projeto é um desafio para a vaga de Desenvolvedor FullStack na empresa Cidade Alta. A aplicação consiste em um sistema de login com OAuth e/ou credenciais tradicionais, onde os dados dos usuários são protegidos utilizando cookies com a flag `httpOnly`. O dashboard apresenta informações do usuário logado, permitindo editar dados como email com confirmação de alteração. Além disso, há um ranking global e a funcionalidade de resgatar emblemas aleatórios.

@@ -2,6 +2,8 @@
 
 ![Dashboard do Aplicativo](./public/dashboard.png)
 
+---
+
 ![Login do Aplicativo](./public/login.png)
 
 ## Instalação e Inicialização do Frontend
