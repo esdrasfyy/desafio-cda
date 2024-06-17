@@ -10,6 +10,7 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
 import { UserController } from './controllers/user/user.controller';
 import { RankingService } from './services/ranking/ranking.service';
 import { MailerService } from './services/mailer/mailer.controller';
+import { RankingController } from './controllers/ranking/ranking.controller';
 
 @Module({
   imports: [],
@@ -19,6 +20,7 @@ import { MailerService } from './services/mailer/mailer.controller';
     RegisterController,
     LoginController,
     UserController,
+    RankingController,
   ],
   providers: [
     AppService,

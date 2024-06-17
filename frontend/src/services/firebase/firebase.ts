@@ -38,7 +38,6 @@ export const UploadImage = async (file: FileList): Promise<string> => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ${progress}% done`);
         },
         (error) => {
           reject(new Error(error.message));

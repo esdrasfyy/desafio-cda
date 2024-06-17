@@ -3,10 +3,8 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
-  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { TbMoodEdit } from "react-icons/tb";
 import { theme } from "../../ui/theme/theme";
 import { ChangeEvent, useState } from "react";
 import { SubmitHandler, UseFormGetValues, useForm } from "react-hook-form";
@@ -27,17 +25,22 @@ const isChanged = (
 ): boolean => {
   const currentValues = getValues();
   return (
-    currentValues.email !== user?.email ||
+    (currentValues.email && currentValues.email.length > 0) !== user?.email ||
     currentValues.username !== user?.username ||
     currentValues.fullname !== user?.fullname ||
     selectedImage !== user.avatar
   );
 };
 
-export const EditProfile = () => {
+export const EditProfile = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: any;
+}) => {
   const { user, setLoading } = useUser();
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [wantBack, setWantBack] = useState<boolean>(false);
   const [confirmCode, setConfirmCode] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string>(
@@ -150,42 +153,34 @@ export const EditProfile = () => {
   };
 
   return (
-    <>
-      <button
-        className="p-2 rounded-full hover:bg-white/30 hover:text-[--color-one] duration-300 ease-linear"
-        onClick={onOpen}
+    <Modal isOpen={isOpen} onClose={closeModal} isCentered>
+      <ModalOverlay
+        backdropFilter="saturate(150%) blur(4px)"
+        backdropInvert="50%"
+        backdropBlur="10px"
+      />
+      <ModalContent
+        bg={theme.colors.bg_secondary}
+        borderRadius="6px"
+        margin="0 10px"
       >
-        <TbMoodEdit />
-      </button>
-      <Modal isOpen={isOpen} onClose={closeModal} isCentered>
-        <ModalOverlay
-          backdropFilter="saturate(150%) blur(4px)"
-          backdropInvert="50%"
-          backdropBlur="10px"
-        />
-        <ModalContent
-          bg={theme.colors.bg_secondary}
-          borderRadius="6px"
-          margin="0 10px"
-        >
-          <ModalBody borderRadius="6px" padding="0" position={"relative"}>
-            <Loading />
-            {confirmCode ? (
-              <ConfirmCode onClose={closeModal} />
-            ) : (
-              <SendCodeEditProfile
-                errors={errors}
-                register={register}
-                handleSubmit={handleSubmit}
-                onSubmitSendCode={onSubmitSendCode}
-                toggleProfile={toggleProfile}
-                selectedImage={selectedImage}
-                isChanged={checkIfChanged}
-              />
-            )}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
+        <ModalBody borderRadius="6px" padding="0" position={"relative"}>
+          <Loading />
+          {confirmCode ? (
+            <ConfirmCode onClose={closeModal} />
+          ) : (
+            <SendCodeEditProfile
+              errors={errors}
+              register={register}
+              handleSubmit={handleSubmit}
+              onSubmitSendCode={onSubmitSendCode}
+              toggleProfile={toggleProfile}
+              selectedImage={selectedImage}
+              isChanged={checkIfChanged}
+            />
+          )}
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 };

@@ -30,7 +30,8 @@ export class RankingService {
     }
   }
   public async getUserNotHaveEmblem({ emblems }: { emblems: EmblemI[] }) {
-    const ids: number[] = emblems.map((emblem) => emblem.id);
+
+    const ids: number[] = emblems.map((emblem) => emblem.id) || [1];
     try {
       const emblemsNotIn = await prisma.emblem.findMany({
         where: {
@@ -68,6 +69,8 @@ export class RankingService {
 
       return emblem;
     } catch (error: any) {
+console.log(error);
+
       throw new Error(error.message || `Erro ao presentear usuário.`);
     }
   }

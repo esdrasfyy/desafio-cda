@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { Response as ExpressResponse } from 'express';
 import { sign } from 'jsonwebtoken';
+import { UserI } from 'src/entities/user.entitie';
 import { prisma } from 'src/services/database/database.service';
 import { OAuthService } from 'src/services/oauth/oauth.service';
 
@@ -30,26 +31,48 @@ export class OAuthController {
       const { avatar_url, id, name } =
         await this.oAuthGithubService.oAuthGithub(code);
 
-      let user = await prisma.user.findFirst({
+      const existingUser = await prisma.user.findFirst({
         where: {
           github_id: String(id),
         },
+        include: {
+          UserEmblems: {
+            include: {
+              emblem: true,
+            },
+          },
+        },
       });
 
-      if (!user) {
-        user = await prisma.user.create({
+      const user =
+        existingUser ||
+        (await prisma.user.create({
           data: {
             avatar: avatar_url,
             github_id: String(id),
             fullname: name,
             username: `user${Math.floor(1000 + Math.random() * 9000)}`,
           },
-        });
-      }
+          include: {
+            UserEmblems: {
+              include: {
+                emblem: true,
+              },
+            },
+          },
+        }));
 
-      const token = sign(user, this.secret, {
-        expiresIn: '24h',
-      });
+      const token = sign(
+        {
+          ...user,
+          emblems: user.UserEmblems.map((ue) => ue.emblem) || [],
+          points:
+            user.UserEmblems.reduce((acc, cur) => acc + cur.emblem.value, 0) ||
+            0,
+        },
+        this.secret,
+        { expiresIn: '24h' },
+      );
 
       res
         .cookie('token', token, {
@@ -68,32 +91,55 @@ export class OAuthController {
   async oAuth(@Query() query: any, @Res() res: ExpressResponse) {
     const code = query.code;
     if (!code) {
-      throw new Error('Dont have a code');
+      throw new Error('OAuth code is missing.');
     }
+
     try {
       const { id, picture, name } =
         await this.oAuthGithubService.oAuthGoogle(code);
 
-      let user = await prisma.user.findFirst({
+      const existingUser = await prisma.user.findFirst({
         where: {
           google_id: String(id),
         },
+        include: {
+          UserEmblems: {
+            include: {
+              emblem: true,
+            },
+          },
+        },
       });
 
-      if (!user) {
-        user = await prisma.user.create({
+      const user =
+        existingUser ||
+        (await prisma.user.create({
           data: {
             avatar: picture,
-            google_id: id,
+            google_id: String(id),
             fullname: name,
-            username: `user${Math.floor(9999 + Math.random() * 99999)}`,
+            username: `user${Math.floor(1000 + Math.random() * 9000)}`,
           },
-        });
-      }
+          include: {
+            UserEmblems: {
+              include: {
+                emblem: true,
+              },
+            },
+          },
+        }));
 
-      const token = sign(user, this.secret, {
-        expiresIn: '24h',
-      });
+      const token = sign(
+        {
+          ...user,
+          emblems: user.UserEmblems.map((ue) => ue.emblem) || [],
+          points:
+            user.UserEmblems.reduce((acc, cur) => acc + cur.emblem.value, 0) ||
+            0,
+        },
+        this.secret,
+        { expiresIn: '24h' },
+      );
 
       res
         .cookie('token', token, {

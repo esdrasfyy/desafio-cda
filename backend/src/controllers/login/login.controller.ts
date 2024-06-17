@@ -56,22 +56,21 @@ export class LoginController {
       const token = sign(
         {
           ...rest,
-          emblems: UserEmblems.map((ue) => ue.emblem),
-          points: UserEmblems.reduce((acc, cur) => acc + cur.emblem.value, 0),
+          emblems: UserEmblems.map((ue) => ue.emblem) || [],
+          points:
+            UserEmblems.reduce((acc, cur) => acc + cur.emblem.value, 0) || 0,
         },
         this.secret,
         { expiresIn: '24h' },
       );
-      
-      res
-        .cookie('token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-          maxAge: 24 * 60 * 60 * 1000,
-        })
-        .status(HttpStatus.OK)
-        .json({ token });
+
+     res.cookie('token', token, {
+       httpOnly: true,
+       secure: process.env.NODE_ENV === 'production',
+       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+       maxAge: 24 * 60 * 60 * 1000,
+     });
+      res.status(HttpStatus.OK).json({ token });
     } catch (error) {
       throw new HttpException(
         error.message || 'Ocorreu um erro interno.',

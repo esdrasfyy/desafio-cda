@@ -28,39 +28,41 @@ export class UserController {
     private readonly mailer: MailerService,
   ) {}
 
-  @Post('/gift')
+  @Get('/gift')
   async GiftUser(
     @Res() res: ExpressResponse,
     @Req() req: ExpressRequest,
   ): Promise<void> {
-    const cookie = req.cookies.token;
+    const token = req.cookies.token as string;
 
     try {
-      const decoded: any = await new Promise((resolve, reject) => {
-        verify(
-          cookie,
-          this.secret,
-          (err: VerifyErrors | null, decoded: any) => {
-            if (err) reject(err);
-            resolve(decoded);
-          },
-        );
-      });
+      const decoded: any = verify(token, this.secret);
+      delete decoded.exp;
+
+      if (!decoded) {
+        res.cookie('token', '', {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+          maxAge: 0,
+        });
+        throw new Error('Login expirado.');
+      }
 
       const emblem = await this.rankingService.getRandomEmblemToUser({
         id: decoded.id,
         emblems: decoded.emblems,
       });
-      delete decoded.exp;
+
       decoded.emblems.push(emblem);
       decoded.points += emblem.value;
 
-      const token = sign(decoded, this.secret, {
+      const newtoken = sign(decoded, this.secret, {
         expiresIn: '24h',
       });
 
       res
-        .cookie('token', token, {
+        .cookie('token', newtoken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',

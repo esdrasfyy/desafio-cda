@@ -9,6 +9,7 @@ export interface UserI {
   fullname?: string | null;
   avatar: string;
   points?: number;
+  ranking: number | null;
   emblems?: EmblemI[];
   created_at: Date;
 }

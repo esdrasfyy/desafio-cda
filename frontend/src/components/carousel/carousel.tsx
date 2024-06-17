@@ -13,6 +13,7 @@ export const Carousel = ({
     prata: "#c0c0c0",
     bronze: "#6e4d25",
   };
+
   return (
     <Splide
       options={{
@@ -49,11 +50,12 @@ export const Carousel = ({
               </div>
             </SplideSlide>
           ))}
-      {!user?.emblems && (
-        <p className="text-center text-xs font-semibold my-6 w-full">
-          Ainda sem emblemas? Jogue agora mesmo.
-        </p>
-      )}
+      {user?.emblems &&
+        user?.emblems.filter((em) => em.category === category).length === 0 && (
+          <p className="text-center text-xs font-semibold my-[33px] w-full">
+            Ainda sem emblemas? Jogue agora mesmo.
+          </p>
+        )}
     </Splide>
   );
 };
