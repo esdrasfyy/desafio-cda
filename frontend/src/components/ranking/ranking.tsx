@@ -39,13 +39,13 @@ export const Ranking = () => {
           <div className="flex items-center gap-3">
             <span className="text-3xl text-[#6e4d25]">#3</span>
             <img
-              src={(ranking && ranking[2]?.avatar) || profile}
+              src={(ranking && ranking[2] && ranking[2]?.avatar) || profile}
               alt=""
               className="w-10 rounded-full"
             />
-            <p>{(ranking && ranking[2]?.username) || "-----------"}</p>
+            <p>{(ranking && ranking[2] && ranking[2]?.username) || "-----------"}</p>
           </div>
-          <div>{(ranking && ranking[2].points + " pontos") || "--------"}</div>
+          <div>{(ranking && ranking[2] && ranking[2].points + " pontos") || "--------"}</div>
         </div>
         <ul>
           {ranking?.slice(3, 12).map((rank, index) => {

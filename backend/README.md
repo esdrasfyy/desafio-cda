@@ -32,7 +32,7 @@ Para iniciar o frontend do aplicativo em React, siga os passos abaixo:
 3. Execute as migrations do Primsa/MySql:
 
    ```bash
-   npx primsa migrate
+   npx prisma migrate dev
    ```
 
 4. Execute as seeds:
